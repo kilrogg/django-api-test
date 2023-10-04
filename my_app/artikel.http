@@ -1,0 +1,18 @@
+PUT http://localhost:8000/api/v1/artikel
+Content-Type: application/json
+
+{
+  "artikelnr": "90206012",
+  "bezeichnung": "WD-40 Vielzweck-Spray",
+  "artikelgruppen": [
+    "Sprays"
+  ],
+  "merkmale": {
+    "klasse": "1",
+    "typ": "Dose",
+    "farbe": "Blau"
+  },
+  "dimensionen": {
+    "Füllmenge (ml)": 670
+  }
+}

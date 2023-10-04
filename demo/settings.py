@@ -14,6 +14,11 @@ INSTALLED_APPS = (
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # -------------------- BEGIN Microsoft Auth -----------------------
+    "django.contrib.sites",
+    "microsoft_auth",
+    # -------------------- END Microsoft Auth -------------------------
+    "django_extensions",
     "my_app",
 )
 
@@ -38,6 +43,9 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "django.contrib.auth.context_processors.auth",
                 "django.template.context_processors.request",
+                # -------------------- BEGIN Microsoft Auth -----------------------
+                "microsoft_auth.context_processors.microsoft",
+                # -------------------- END Microsoft Auth -------------------------
             ]
         },
     }
@@ -69,6 +77,24 @@ LOGGING = {
 }
 
 ROOT_URLCONF = "demo.urls"
+
+# -------------------- BEGIN Microsoft Auth -----------------------
+AUTHENTICATION_BACKENDS = [
+    "microsoft_auth.backends.MicrosoftAuthenticationBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+SITE_ID = 1
+
+MICROSOFT_AUTH_CLIENT_ID = "<client-id>"
+MICROSOFT_AUTH_CLIENT_SECRET = "<secret>"
+MICROSOFT_AUTH_TENANT_ID = "<tenant-id>"
+MICROSOFT_AUTH_LOGIN_TYPE = 'ma'
+
+MICROSOFT_AUTH_AUTHENTICATE_HOOK = "my_app.auth.on_user_login"
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+# -------------------- END Microsoft Auth -------------------------
 
 if not DEBUG:
     raise Exception("This settings file can only be used with DEBUG=True")

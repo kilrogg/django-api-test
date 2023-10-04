@@ -30,6 +30,9 @@ packages = [{ include = "my_app" }]
 [tool.poetry.dependencies]
 python = "^3.8"
 django = "^3.2 || ^4.0 || ^5.0"
+django-ninja = {version = "1.0b1", allow-prereleases = true}
+django-microsoft-auth = "^3.0.1"
+django-extensions = "^3.2.3"
 
 [tool.poetry.dev-dependencies]
 black = "*"
