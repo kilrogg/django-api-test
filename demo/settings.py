@@ -1,4 +1,9 @@
+import logging
+import os
+
 from os import path
+
+logger = logging.getLogger(__name__)
 
 DEBUG = True
 TEMPLATE_DEBUG = True
@@ -86,11 +91,18 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-MICROSOFT_AUTH_CLIENT_ID = "<client-id>"
-MICROSOFT_AUTH_CLIENT_SECRET = "<secret>"
-MICROSOFT_AUTH_TENANT_ID = "<tenant-id>"
-MICROSOFT_AUTH_LOGIN_TYPE = 'ma'
+MICROSOFT_AUTH_CLIENT_ID = os.getenv("MSAUTH_CLIENT_ID")
+MICROSOFT_AUTH_CLIENT_SECRET = os.getenv("MSAUTH_CLIENT_SECRET")
+MICROSOFT_AUTH_TENANT_ID = os.getenv("MSAUTH_TENANT_ID")
+if all([MICROSOFT_AUTH_CLIENT_ID, MICROSOFT_AUTH_CLIENT_SECRET, MICROSOFT_AUTH_TENANT_ID]):
+    MICROSOFT_AUTH_LOGIN_ENABLED = True
+else:
+    logger.warning("Disabling Microsoft authentication backend because not all environment variables "
+                   "(MSAUTH_CLIENT_ID, MSAUTH_CLIENT_SECRET, MSAUTH_TENANT_ID) are set!")
 
+    MICROSOFT_AUTH_LOGIN_ENABLED = False
+
+MICROSOFT_AUTH_LOGIN_TYPE = "ma"
 MICROSOFT_AUTH_AUTHENTICATE_HOOK = "my_app.auth.on_user_login"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

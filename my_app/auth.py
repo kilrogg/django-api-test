@@ -1,8 +1,7 @@
 from django.contrib.auth.models import Group, User
 
 
-def on_user_login(user: User, token: dict):
-
+def on_user_login(user: User, token: dict) -> None:
     if not user.is_staff:
         user.is_staff = True
         user.save()

@@ -4,12 +4,11 @@ set -ex
 ##
 ## Create some aliases
 ##
-echo 'alias ll="ls -alF"' >> $HOME/.bashrc
-echo 'alias la="ls -A"' >> $HOME/.bashrc
-echo 'alias l="ls -CF"' >> $HOME/.bashrc
 
 # Convenience workspace directory for later use
 WORKSPACE_DIR=$(pwd)
+
+echo 'export PATH="/home/developer/.local/bin:$PATH"' >> ~/.bashrc
 
 # Change some Poetry settings to better deal with working in a container
 poetry config cache-dir ${WORKSPACE_DIR}/.cache
